@@ -1,0 +1,33 @@
+/* Page background */
+body {
+    background-color: #f5f7fa;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+/* Buttons spacing */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Table improvements */
+.table th {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    font-size: 14px;
+}
+
+/* Badge styling */
+.badge {
+    padding: 6px 10px;
+    font-size: 12px;
+    text-transform: capitalize;
+}
