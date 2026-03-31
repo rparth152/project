@@ -22,4 +22,8 @@ export class Reports {
     const url="https://localhost:7247/api/Reports/ExportPDF";
     return this.http.get(url,{responseType:'blob'})
   }
+  leavegraph(){
+    const url="https://localhost:7247/api/Reports/LeaveGraph";
+    return this.http.get(url)
+  }
 }
