@@ -1,10 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { Reports } from '../reports';
 import { Chart } from 'chart.js/auto';
 import { saveAs } from 'file-saver';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-emp-status',
-  imports: [],
+  imports: [MatTableModule, MatCardModule,MatToolbarModule,   // ✅ REQUIRED
+    MatButtonModule, ],
   templateUrl: './emp-status.html',
   styleUrl: './emp-status.scss',
 })
@@ -12,7 +17,8 @@ export class EmpStatus {
   Estatus:any
   Empdata:any
   protected readonly title = signal('project');
-constructor(private reportsService:Reports){
+dataSource: any;
+constructor(private reportsService:Reports ,private cd:ChangeDetectorRef){
     
   }
   ngOnInit(){
@@ -25,6 +31,7 @@ constructor(private reportsService:Reports){
   this.reportsService.getempdetails().subscribe((emp:any)=>{
     console.log(emp);
       this.Empdata=emp.data
+      this.cd.detectChanges();
   });
   }
  exportCSV(){
@@ -38,6 +45,15 @@ constructor(private reportsService:Reports){
     saveAs(pdf, 'EmpdataPDF.pdf');
    })
  }
+ displayedColumns: string[] = [
+  'employeeId',
+  'firstName',
+  'lastName',
+  'email',
+  'gender',
+  'status',
+  'joiningDate'
+];
   Graphshow(){
   const active =  this.Estatus.data.sactive;
   const inactive =  this.Estatus.data.sinactive; 
