@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-emp-status',
-  imports: [MatTableModule, MatCardModule,MatToolbarModule,   // ✅ REQUIRED
+  imports: [MatTableModule, MatCardModule,MatToolbarModule, 
     MatButtonModule, ],
   templateUrl: './emp-status.html',
   styleUrl: './emp-status.scss',
@@ -16,8 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class EmpStatus {
   Estatus:any
   Empdata:any
-  protected readonly title = signal('project');
-dataSource: any;
+  active:any
+  inactive:any
+  total:any
+  // protected readonly title = signal('project');
 constructor(private reportsService:Reports ,private cd:ChangeDetectorRef){
     
   }
@@ -26,7 +28,10 @@ constructor(private reportsService:Reports ,private cd:ChangeDetectorRef){
       console.log(data);
       this.Estatus=data
       this.Graphshow();
-    
+      this.active =  this.Estatus.data.sactive;
+      this.inactive =  this.Estatus.data.sinactive; 
+      this.total =  this.Estatus.data.ecount; 
+      this.cd.detectChanges();
     });
   this.reportsService.getempdetails().subscribe((emp:any)=>{
     console.log(emp);

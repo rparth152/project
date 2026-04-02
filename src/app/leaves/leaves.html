@@ -1,4 +1,126 @@
-<mat-card class="chart-card">
-    <h3>Leaves</h3>
-    <canvas id="leaveChart"></canvas>
-</mat-card>
+<mat-toolbar color="primary" class="navbar">
+    <span class="title">Leave Report</span>
+
+    <span class="spacer"></span>
+
+    <button mat-raised-button color="accent" (click)="exportCSV()">Export CSV</button>
+    <button mat-raised-button color="warn" (click)="exportPDF()">Export PDF</button>
+</mat-toolbar>
+
+
+<div class="dashboard">
+
+    <!-- TOP GRID -->
+    <div class="top-grid">
+
+        <!-- LEFT CARDS -->
+        <div class="card-section">
+
+            <mat-card class="stat-card orange">
+                <p>Total Leaves</p>
+                <h2>{{ total }}</h2>
+            </mat-card>
+
+
+
+            <mat-card class="stat-card blue">
+                <p>Active Leaves</p>
+                <h2>{{ active }}</h2>
+            </mat-card>
+
+            <mat-card class="stat-card red">
+                <p>Inactive Leaves</p>
+                <h2>{{ inactive }}</h2>
+            </mat-card>
+
+        </div>
+
+        <mat-card class="chart-card">
+            <h3>Leaves</h3>
+            <canvas id="leaveChart"></canvas>
+        </mat-card>
+
+    </div>
+    <mat-card class="table-card">
+        <h3>Leaves List</h3>
+    
+        <table mat-table [dataSource]="Leavedata">
+    
+            <!-- Leave Request ID -->
+            <ng-container matColumnDef="leaveRequestId">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let l">{{ l.leaveRequestId }}</td>
+            </ng-container>
+    
+            <!-- Employee ID -->
+            <ng-container matColumnDef="employeeId">
+                <th mat-header-cell *matHeaderCellDef>Emp ID</th>
+                <td mat-cell *matCellDef="let l">{{ l.employeeId }}</td>
+            </ng-container>
+    
+            <!-- Leave Type -->
+            <ng-container matColumnDef="leaveTypeId">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let l">{{ l.leaveTypeId }}</td>
+            </ng-container>
+    
+            <!-- Start Date -->
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef>Start</th>
+                <td mat-cell *matCellDef="let l">
+                    {{ l.startDate | date:'shortDate' }}
+                </td>
+            </ng-container>
+    
+            <!-- End Date -->
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef>End</th>
+                <td mat-cell *matCellDef="let l">
+                    {{ l.endDate | date:'shortDate' }}
+                </td>
+            </ng-container>
+    
+            <!-- Number of Days -->
+            <ng-container matColumnDef="numberOfDays">
+                <th mat-header-cell *matHeaderCellDef>Days</th>
+                <td mat-cell *matCellDef="let l">{{ l.numberOfDays }}</td>
+            </ng-container>
+    
+            <!-- Reason -->
+            <ng-container matColumnDef="reason">
+                <th mat-header-cell *matHeaderCellDef>Reason</th>
+                <td mat-cell *matCellDef="let l">{{ l.reason }}</td>
+            </ng-container>
+    
+            <!-- Approved By -->
+            <ng-container matColumnDef="approvedBy">
+                <th mat-header-cell *matHeaderCellDef>Approved By</th>
+                <td mat-cell *matCellDef="let l">{{ l.approvedBy }}</td>
+            </ng-container>
+    
+            <!-- Status -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let l">
+                    <span class="status active" *ngIf="l.status === 'active'">Active</span>
+                    <span class="status inactive" *ngIf="l.status !== 'active'">Inactive</span>
+                </td>
+            </ng-container>
+    
+            <!-- Status History -->
+            <ng-container matColumnDef="statusHistory">
+                <th mat-header-cell *matHeaderCellDef>History</th>
+                <td mat-cell *matCellDef="let l">{{ l.statusHistory }}</td>
+            </ng-container>
+    
+            <!-- Header & Rows -->
+            <tr mat-header-row *matHeaderRowDef="leaveColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: leaveColumns;"></tr>
+    
+        </table>
+    </mat-card>
+</div>
+
+
+
+

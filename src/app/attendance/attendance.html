@@ -1,0 +1,152 @@
+<!-- NAVBAR -->
+<mat-toolbar color="primary" class="navbar">
+    <span class="title">Attendance Report</span>
+
+    <span class="spacer"></span>
+
+    <button mat-raised-button color="accent" (click)="exportCSV()">Export CSV</button>
+    <button mat-raised-button color="warn" (click)="exportPDF()">Export PDF</button>
+</mat-toolbar>
+
+<div class="dashboard">
+
+    <!-- TOP GRID -->
+    <div class="top-grid">
+
+        <!-- LEFT CARDS -->
+        <div class="card-section">
+
+            <!-- <mat-card class="stat-card orange">
+                <p>Total Employee</p>
+                <h2>{{ total }}</h2>
+            </mat-card>
+
+
+
+            <mat-card class="stat-card blue">
+                <p>Active Employee</p>
+                <h2>{{ active }}</h2>
+            </mat-card>
+
+            <mat-card class="stat-card red">
+                <p>Inactive Employee</p>
+                <h2>{{ inactive }}</h2>
+            </mat-card> -->
+
+        </div>
+
+        <!-- RIGHT CHART -->
+        <mat-card class="chart-card">
+            <h3>Attendance Chart</h3>
+            <canvas id="employeeChart"></canvas>
+        </mat-card>
+
+    </div>
+
+    <mat-card class="table-card">
+        <h3>Attendance List</h3>
+    
+        <table mat-table [dataSource]="Attendancedata">
+    
+            <!-- Attendance ID -->
+            <ng-container matColumnDef="attendanceId">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let a">{{ a.attendanceId }}</td>
+            </ng-container>
+    
+            <!-- Employee ID -->
+            <ng-container matColumnDef="employeeId">
+                <th mat-header-cell *matHeaderCellDef>Emp ID</th>
+                <td mat-cell *matCellDef="let a">{{ a.employeeId }}</td>
+            </ng-container>
+    
+            <!-- Date -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let a">
+                    {{ a.date | date:'shortDate' }}
+                </td>
+            </ng-container>
+    
+            <!-- Check In -->
+            <ng-container matColumnDef="checkIn">
+                <th mat-header-cell *matHeaderCellDef>Check In</th>
+                <td mat-cell *matCellDef="let a">
+                    {{ a.checkIn | date:'shortTime' }}
+                </td>
+            </ng-container>
+    
+            <!-- Check Out -->
+            <ng-container matColumnDef="checkOut">
+                <th mat-header-cell *matHeaderCellDef>Check Out</th>
+                <td mat-cell *matCellDef="let a">
+                    {{ a.checkOut | date:'shortTime' }}
+                </td>
+            </ng-container>
+    
+            <!-- Lunch In -->
+            <ng-container matColumnDef="lunchIn">
+                <th mat-header-cell *matHeaderCellDef>Lunch In</th>
+                <td mat-cell *matCellDef="let a">
+                    {{ a.lunchIn | date:'shortTime' }}
+                </td>
+            </ng-container>
+    
+            <!-- Lunch Out -->
+            <ng-container matColumnDef="lunchOut">
+                <th mat-header-cell *matHeaderCellDef>Lunch Out</th>
+                <td mat-cell *matCellDef="let a">
+                    {{ a.lunchOut | date:'shortTime' }}
+                </td>
+            </ng-container>
+    
+            <!-- Working Hours -->
+            <ng-container matColumnDef="workingHours">
+                <th mat-header-cell *matHeaderCellDef>Working</th>
+                <td mat-cell *matCellDef="let a">{{ a.workingHours }} hrs</td>
+            </ng-container>
+    
+            <!-- Production Hours -->
+            <ng-container matColumnDef="productionHours">
+                <th mat-header-cell *matHeaderCellDef>Production</th>
+                <td mat-cell *matCellDef="let a">{{ a.productionHours }} hrs</td>
+            </ng-container>
+    
+            <!-- Overtime -->
+            <ng-container matColumnDef="overtimeHours">
+                <th mat-header-cell *matHeaderCellDef>Overtime</th>
+                <td mat-cell *matCellDef="let a">{{ a.overtimeHours }} hrs</td>
+            </ng-container>
+    
+            <!-- Break -->
+            <ng-container matColumnDef="breakHours">
+                <th mat-header-cell *matHeaderCellDef>Break</th>
+                <td mat-cell *matCellDef="let a">{{ a.breakHours }} hrs</td>
+            </ng-container>
+    
+            <!-- Late -->
+            <ng-container matColumnDef="late">
+                <th mat-header-cell *matHeaderCellDef>Late</th>
+                <td mat-cell *matCellDef="let a">
+                    <span class="late" *ngIf="a.late === 1">Yes</span>
+                    <span *ngIf="a.late === 0">No</span>
+                </td>
+            </ng-container>
+    
+            <!-- Status -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let a">
+                    <span class="status active" *ngIf="a.status === 'active'">Active</span>
+                    <span class="status inactive" *ngIf="a.status !== 'active'">Inactive</span>
+                </td>
+            </ng-container>
+    
+            <!-- Header & Rows -->
+            <tr mat-header-row *matHeaderRowDef="attendanceColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: attendanceColumns;"></tr>
+    
+        </table>
+    </mat-card>
+
+</div>

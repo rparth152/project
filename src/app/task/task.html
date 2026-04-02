@@ -1,0 +1,102 @@
+<mat-toolbar color="primary" class="navbar">
+    <span class="title">Task Report</span>
+
+    <span class="spacer"></span>
+
+    <button mat-raised-button color="accent" (click)="exportCSV()">Export CSV</button>
+    <button mat-raised-button color="warn" (click)="exportPDF()">Export PDF</button>
+</mat-toolbar>
+
+
+<div class="dashboard">
+
+    <!-- TOP GRID -->
+    <div class="top-grid">
+
+        <!-- LEFT CARDS -->
+        <div class="card-section">
+
+            <mat-card class="stat-card green">
+                <p>Active Projects</p>
+                <h2>{{ active }}</h2>
+            </mat-card>
+
+            <mat-card class="stat-card red">
+                <p>Inactive Projects</p>
+                <h2>{{ inactive }}</h2>
+            </mat-card>
+
+        </div>
+
+        <mat-card class="chart-card" style="width: 800px; height: 400px;">
+            <h3>Task Status</h3>
+            <canvas id="TaskChart"></canvas>
+        </mat-card>
+    </div>
+
+    <mat-card class="table-card">
+        <h3>Tasks List</h3>
+    
+        <table mat-table [dataSource]="Taskdata">
+    
+            <!-- Task ID -->
+            <ng-container matColumnDef="taskId">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let t">{{ t.taskId }}</td>
+            </ng-container>
+    
+            <!-- Title -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let t">{{ t.title }}</td>
+            </ng-container>
+    
+            <!-- Project Name -->
+            <ng-container matColumnDef="projectName">
+                <th mat-header-cell *matHeaderCellDef>Project</th>
+                <td mat-cell *matCellDef="let t">
+                    <span *ngIf="t.projectName; else noProject">
+                        {{ t.projectName }}
+                    </span>
+                    <ng-template #noProject>No Project</ng-template>
+                </td>
+            </ng-container>
+    
+            <!-- Due Date -->
+            <ng-container matColumnDef="dueDate">
+                <th mat-header-cell *matHeaderCellDef>Due Date</th>
+                <td mat-cell *matCellDef="let t">
+                    <span *ngIf="t.dueDate !== '0001-01-01T00:00:00'; else noDate">
+                        {{ t.dueDate | date:'shortDate' }}
+                    </span>
+                    <ng-template #noDate>Not Set</ng-template>
+                </td>
+            </ng-container>
+    
+            <!-- Priority -->
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let t">
+                    <span class="priority high" *ngIf="t.priority === 'high'">High</span>
+                    <span class="priority medium" *ngIf="t.priority === 'medium'">Medium</span>
+                    <span class="priority low" *ngIf="t.priority === 'low'">Low</span>
+                </td>
+            </ng-container>
+    
+            <!-- Status -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let t">
+                    <span class="status active" *ngIf="t.status === 'active'">Active</span>
+                    <span class="status inactive" *ngIf="t.status !== 'active'">Inactive</span>
+                </td>
+            </ng-container>
+    
+            <!-- Header & Rows -->
+            <tr mat-header-row *matHeaderRowDef="taskColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: taskColumns;"></tr>
+    
+        </table>
+    </mat-card>
+
+</div>

@@ -26,4 +26,32 @@ export class Reports {
     const url="https://localhost:7247/api/Reports/LeaveGraph";
     return this.http.get(url)
   }
+  leavetable(){
+    const url="https://localhost:7247/api/Reports/fleaves";
+    return this.http.get(url)
+  }
+  attendancedata(){
+    const url="https://localhost:7247/api/Reports/fattendance";
+    return this.http.get(url)
+  }
+  attendancegraph(){
+    const url="https://localhost:7247/api/Reports/AttendanceGraph";
+    return this.http.get(url)
+  }
+  projgraph(){
+    const url="https://localhost:7247/api/Reports/ProjGraph";
+    return this.http.get(url)
+  }
+  projtable(){
+    const url="https://localhost:7247/api/Reports/ProjTable";
+    return this.http.get(url)
+  }
+  taskgraph(){
+    const url="https://localhost:7247/api/Reports/TaskGraph";
+    return this.http.get(url)
+  }
+  tasktable(){
+    const url="https://localhost:7247/api/Reports/TaskTable";
+    return this.http.get(url)
+  }
 }
